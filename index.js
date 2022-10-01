@@ -20,7 +20,6 @@ async function user(username, fn) {
   for (const r of rs) {
     const langs = await get(r.languages_url)
     for (const [lang, lines] of Object.entries(langs)) {
-      console.log(lang, lines)
       total += lines
       if (!stats.languages[lang]) stats.languages[lang] = 0
       stats.languages[lang] += lines

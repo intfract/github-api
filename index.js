@@ -18,11 +18,13 @@ async function user(username, fn) {
     languages: {}
   }
   for (const r of rs) {
-    const langs = await get(r.languages_url)
-    for (const [lang, lines] of Object.entries(langs)) {
-      total += lines
-      if (!stats.languages[lang]) stats.languages[lang] = 0
-      stats.languages[lang] += lines
+    if (!r.fork) {
+      const langs = await get(r.languages_url)
+      for (const [lang, lines] of Object.entries(langs)) {
+        total += lines
+        if (!stats.languages[lang]) stats.languages[lang] = 0
+        stats.languages[lang] += lines
+      }
     }
   }
   for (const [lang, lines] of Object.entries(stats.languages)) {
